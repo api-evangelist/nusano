@@ -1,0 +1,206 @@
+generated: '2026-08-26'
+method: derived
+source: openapi/*.yml + live responses from https://nusano.com/wp-json/wp/v2 (2026-08-26)
+note: Entity graph of the nusano.com content API, derived from the route index and confirmed against live
+  sample payloads. Ids are integers; relationships are expressed as integer id references on the resource,
+  resolvable via ?_embed or by following _links.
+id_scheme:
+  type: integer
+  prefixed: false
+  note: WordPress uses bare auto-increment integers with no type prefix, so an id is only meaningful alongside
+    its collection.
+entities:
+- name: Post
+  collection: /wp/v2/posts
+  count_observed: 109
+  description: News releases, event notices and Nu Blog entries.
+  key_fields:
+  - id
+  - date
+  - slug
+  - link
+  - title.rendered
+  - excerpt.rendered
+  - content.rendered
+  - status
+  - type
+  - author
+  - featured_media
+  - categories
+  - tags
+- name: Page
+  collection: /wp/v2/pages
+  count_observed: 47
+  description: Company, technology, life-sciences, HALEU knowledge-center and careers pages.
+  key_fields:
+  - id
+  - slug
+  - link
+  - title.rendered
+  - content.rendered
+  - parent
+  - menu_order
+  - author
+  - featured_media
+- name: Media
+  collection: /wp/v2/media
+  count_observed: 1127
+  description: 'Media library: facility photography, logos, media-kit assets, documents.'
+  key_fields:
+  - id
+  - slug
+  - link
+  - title.rendered
+  - media_type
+  - mime_type
+  - source_url
+  - alt_text
+  - post
+  - author
+- name: Category
+  collection: /wp/v2/categories
+  count_observed: 14
+  description: Editorial categories (e.g. Blog, Awards & Honors, Community).
+  key_fields:
+  - id
+  - name
+  - slug
+  - count
+  - parent
+  - taxonomy
+  - link
+- name: Tag
+  collection: /wp/v2/tags
+  count_observed: 310
+  description: Free-form editorial tags.
+  key_fields:
+  - id
+  - name
+  - slug
+  - count
+  - taxonomy
+  - link
+- name: User
+  collection: /wp/v2/users
+  count_observed: 2
+  description: Publicly listed content authors.
+  key_fields:
+  - id
+  - name
+  - slug
+  - description
+  - link
+  - avatar_urls
+- name: Comment
+  collection: /wp/v2/comments
+  count_observed: 0
+  description: Comment collection; empty because comments are closed site-wide.
+  key_fields:
+  - id
+  - post
+  - parent
+  - author
+  - author_name
+  - date
+  - content.rendered
+  - status
+- name: SearchResult
+  collection: /wp/v2/search
+  count_observed: 156
+  description: Lightweight cross-type search projection over posts and pages.
+  key_fields:
+  - id
+  - title
+  - url
+  - type
+  - subtype
+- name: Type
+  collection: /wp/v2/types
+  description: Descriptor of a registered content type; the self-describing layer.
+  key_fields:
+  - name
+  - slug
+  - description
+  - hierarchical
+  - rest_base
+  - taxonomies
+- name: Taxonomy
+  collection: /wp/v2/taxonomies
+  description: Descriptor of a registered taxonomy.
+  key_fields:
+  - name
+  - slug
+  - types
+  - hierarchical
+  - rest_base
+relationships:
+- from: Post
+  to: User
+  type: belongs_to
+  via: author
+  confidence: high
+- from: Post
+  to: Media
+  type: belongs_to
+  via: featured_media
+  confidence: high
+- from: Post
+  to: Category
+  type: has_many
+  via: categories
+  confidence: high
+- from: Post
+  to: Tag
+  type: has_many
+  via: tags
+  confidence: high
+- from: Post
+  to: Comment
+  type: has_many
+  via: Comment.post
+  confidence: high
+- from: Page
+  to: User
+  type: belongs_to
+  via: author
+  confidence: high
+- from: Page
+  to: Page
+  type: belongs_to
+  via: parent
+  confidence: high
+- from: Page
+  to: Media
+  type: belongs_to
+  via: featured_media
+  confidence: high
+- from: Media
+  to: Post
+  type: belongs_to
+  via: post
+  confidence: high
+- from: Media
+  to: User
+  type: belongs_to
+  via: author
+  confidence: high
+- from: Category
+  to: Category
+  type: belongs_to
+  via: parent
+  confidence: high
+- from: Comment
+  to: Post
+  type: belongs_to
+  via: post
+  confidence: high
+- from: Comment
+  to: Comment
+  type: belongs_to
+  via: parent
+  confidence: high
+- from: Type
+  to: Taxonomy
+  type: has_many
+  via: taxonomies
+  confidence: high

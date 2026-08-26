@@ -1,0 +1,18 @@
+generated: '2026-08-26'
+method: searched
+source: https://nusano.com/ site walk 2026-08-26 — https://nusano.com/life-sciences/, https://nusano.com/company/contact-us/contact-sales/
+plan_count: 0
+note: Nusano publishes no pricing page and no plans. It sells radioisotopes as a physical product under
+  negotiated multi-isotope supply agreements (publicly announced with Ratio Therapeutics, Ariceum Therapeutics
+  and Clarity Pharmaceuticals) and routes every commercial enquiry through a Contact Sales form. There
+  is no metered, tiered or self-service commercial surface of any kind, and no API is sold. Recorded as
+  an explicit zero rather than omitted.
+model: contact-sales
+plans: []
+evidence:
+- url: https://nusano.com/company/contact-us/contact-sales/
+  status: 200
+  note: Contact Sales form; no prices.
+- url: https://nusano.com/life-sciences/products-medical-radioisotopes/
+  status: 200
+  note: Product catalog of isotopes with no pricing.

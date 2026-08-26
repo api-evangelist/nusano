@@ -1,0 +1,24 @@
+generated: '2026-08-26'
+method: probed
+source: live response headers from https://nusano.com/wp-json/wp/v2/posts (2026-08-26) + site search for
+  a published limits page
+limit_count: 0
+documented: false
+note: 'Nusano publishes no rate limits — there is no developer portal or API documentation on nusano.com
+  to publish them in. No X-RateLimit-*, RateLimit-* or Retry-After header was returned on any observed
+  response; the only rate-relevant headers present are cache directives (x-litespeed-cache-control: no-cache)
+  from the LiteSpeed Cache plugin. An honest zero: not measured as unlimited, measured as unstated.'
+limits: []
+response_headers: []
+exhaustion_status: null
+observed_headers_sample:
+- x-wp-total
+- x-wp-totalpages
+- link
+- x-litespeed-cache-control
+- cache-control
+- access-control-expose-headers
+- x-content-type-options
+- x-robots-tag
+- vary
+- alt-svc

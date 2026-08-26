@@ -1,18 +1,167 @@
 aid: nusano
 name: Nusano
-description: 'Nusano is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'Nusano is a privately held physics company headquartered in West Valley City, Utah, that
+  is rebuilding radioisotope production around a proprietary high-current ion source and linear accelerator
+  platform. Founded by nuclear cardiologist Dr. Howard Lewin and nuclear physicist Dr. Glenn Rosenthal
+  and led by CEO Chris Lowe, the company cut the ribbon in August 2025 on a custom-built 190,000-square-foot
+  production facility capable of producing more than 40 different radioisotopes, and has raised over $115M
+  in a Series C to commercialize them. Its platform can generate up to twelve isotopes simultaneously
+  and serves three markets: medical radioisotopes as active pharmaceutical ingredients for radiotherapeutic
+  and diagnostic oncology (with multi-isotope supply agreements signed with Ratio Therapeutics, Ariceum
+  Therapeutics and Clarity Pharmaceuticals), high-assay low-enriched uranium (HALEU) for next-generation
+  nuclear fuel, and long-lived radioisotope nuclear batteries for aerospace, maritime and terrestrial
+  use, alongside mass-separation work on North American critical mineral refining. Nusano is a manufacturer
+  of physical radioisotope products, not a software vendor: it operates no developer program, publishes
+  no product API, SDK or developer portal, and the only machine-readable surfaces on nusano.com are a
+  published llms.txt and the WordPress content REST API (wp/v2) that serves the newsroom, Nu Blog, pages
+  and media library as JSON, plus a WordPress MCP Adapter endpoint that is live but authentication-gated.'
 url: https://raw.githubusercontent.com/api-evangelist/nusano/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
-specificationVersion: '0.20'
+x-tier: profiled
+x-tier-reason: enrichment-pipeline
+specificationVersion: '0.23'
 created: '2026-08-26'
 modified: '2026-08-26'
 tags:
 - Company
-apis: []
+- Radioisotopes
+- Nuclear Medicine
+- Life Sciences
+- Healthcare
+- Oncology
+- Radiopharmaceuticals
+- Physics
+- Advanced Manufacturing
+- Nuclear Energy
+- HALEU
+- Critical Minerals
+- Content
+apis:
+- aid: nusano:mcp
+  name: Nusano MCP Server (WordPress MCP Adapter)
+  description: 'A Model Context Protocol server endpoint advertised in the nusano.com WordPress REST route
+    index under the "mcp" namespace and served at /wp-json/mcp/mcp-adapter-default-server. The endpoint
+    is live but authentication-gated: an anonymous JSON-RPC tools/list returns HTTP 401 rest_forbidden,
+    as do initialize and the companion wp-abilities/v1 abilities registry, so the published tool set could
+    not be enumerated.'
+  humanURL: https://nusano.com/wp-json/mcp
+  baseURL: https://nusano.com/wp-json/mcp/mcp-adapter-default-server
+  tags:
+  - MCP
+  - Agents
+  properties:
+  - type: MCPServer
+    url: mcp/nusano-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/nusano-tool-crosswalk.yml
+- aid: nusano:posts
+  name: Nusano Posts API
+  description: News releases, event notices and Nu Blog posts from nusano.com, served as JSON by the WordPress
+    content REST API. 109 posts were readable anonymously on 2026-08-26.
+  humanURL: https://nusano.com/news/
+  baseURL: https://nusano.com/wp-json/wp/v2
+  tags:
+  - Posts
+  - Content
+  - News
+  properties:
+  - type: OpenAPI
+    url: openapi/nusano-posts-api-openapi.yml
+- aid: nusano:pages
+  name: Nusano Pages API
+  description: Marketing, company, technology and HALEU Knowledge Center pages from nusano.com, served
+    as JSON. 47 pages were readable anonymously on 2026-08-26.
+  humanURL: https://nusano.com/
+  baseURL: https://nusano.com/wp-json/wp/v2
+  tags:
+  - Pages
+  - Content
+  properties:
+  - type: OpenAPI
+    url: openapi/nusano-pages-api-openapi.yml
+- aid: nusano:media
+  name: Nusano Media API
+  description: The nusano.com media library — facility photography, logos, media-kit assets and documents
+    — served as JSON. 1,127 media items were readable anonymously on 2026-08-26.
+  humanURL: https://nusano.com/news/nusano-media-kit/
+  baseURL: https://nusano.com/wp-json/wp/v2
+  tags:
+  - Media
+  - Content
+  properties:
+  - type: OpenAPI
+    url: openapi/nusano-media-api-openapi.yml
+- aid: nusano:categories
+  name: Nusano Categories API
+  description: The category taxonomy applied to Nusano news and blog content (14 categories on 2026-08-26).
+  humanURL: https://nusano.com/news/
+  baseURL: https://nusano.com/wp-json/wp/v2
+  tags:
+  - Categories
+  - Taxonomy
+  properties:
+  - type: OpenAPI
+    url: openapi/nusano-categories-api-openapi.yml
+- aid: nusano:tags
+  name: Nusano Tags API
+  description: The tag taxonomy applied to Nusano news and blog content (310 tags on 2026-08-26).
+  humanURL: https://nusano.com/news/
+  baseURL: https://nusano.com/wp-json/wp/v2
+  tags:
+  - Tags
+  - Taxonomy
+  properties:
+  - type: OpenAPI
+    url: openapi/nusano-tags-api-openapi.yml
+- aid: nusano:users
+  name: Nusano Users API
+  description: Publicly listed content authors on nusano.com (2 on 2026-08-26). Write routes and the application-password
+    routes on this collection are authentication-gated.
+  humanURL: https://nusano.com/news/
+  baseURL: https://nusano.com/wp-json/wp/v2
+  tags:
+  - Users
+  - Content
+  properties:
+  - type: OpenAPI
+    url: openapi/nusano-users-api-openapi.yml
+- aid: nusano:comments
+  name: Nusano Comments API
+  description: The comment collection for nusano.com. The route is live and anonymously readable but returns
+    an empty set — comments are closed across the site.
+  humanURL: https://nusano.com/news/
+  baseURL: https://nusano.com/wp-json/wp/v2
+  tags:
+  - Comments
+  - Content
+  properties:
+  - type: OpenAPI
+    url: openapi/nusano-comments-api-openapi.yml
+- aid: nusano:search
+  name: Nusano Search API
+  description: Site-wide search across nusano.com posts and pages, returning 156 searchable objects on
+    2026-08-26.
+  humanURL: https://nusano.com/
+  baseURL: https://nusano.com/wp-json/wp/v2
+  tags:
+  - Search
+  - Content
+  properties:
+  - type: OpenAPI
+    url: openapi/nusano-search-api-openapi.yml
+- aid: nusano:discovery
+  name: Nusano Discovery API
+  description: Type, taxonomy and status descriptors that describe the shape of the nusano.com content
+    collections — the self-describing layer of the WordPress REST API.
+  humanURL: https://nusano.com/wp-json/wp/v2
+  baseURL: https://nusano.com/wp-json/wp/v2
+  tags:
+  - Discovery
+  - Metadata
+  properties:
+  - type: OpenAPI
+    url: openapi/nusano-discovery-api-openapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -20,4 +169,66 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
+  url: https://nusano.com/
+- type: About
+  url: https://nusano.com/company/
+- type: Technology
+  url: https://nusano.com/technology/
+- type: Blog
+  url: https://nusano.com/news/nu-blog/
+- type: BlogRSS
+  url: https://nusano.com/feed/
+- type: News
+  url: https://nusano.com/news/
+- type: Support
+  url: https://nusano.com/contact-us/
+- type: Careers
+  url: https://nusano.com/careers/
+- type: MediaKit
+  url: https://nusano.com/news/nusano-media-kit/
+- type: GitHubOrganization
+  url: https://github.com/Nusano
+- type: LinkedIn
+  url: https://www.linkedin.com/company/nusano/
+- type: YouTube
+  url: https://www.youtube.com/@nusano
+- type: TermsOfService
+  url: https://nusano.com/terms-of-service/
+- type: PrivacyPolicy
+  url: https://nusano.com/privacy-policy/
+- type: SecondaryMarket
   url: https://forgeglobal.com/nusano_stock/
+- type: LLMsTxt
+  url: llms/nusano-llms.txt
+- type: DomainSecurity
+  url: security/nusano-domain-security.yml
+- type: Authentication
+  url: authentication/nusano-authentication.yml
+- type: Conventions
+  url: conventions/nusano-conventions.yml
+- type: ErrorCatalog
+  url: errors/nusano-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/nusano-lifecycle.yml
+- type: Conformance
+  url: conformance/nusano-conformance.yml
+- type: DataModel
+  url: data-model/nusano-data-model.yml
+- type: RateLimits
+  url: rate-limits/nusano-rate-limits.yml
+- type: Plans
+  url: plans/nusano-plans-pricing.yml
+- type: Packages
+  url: packages/nusano-packages.yml
+- type: Examples
+  url: examples/nusano-examples.yml
+- type: Overlay
+  url: overlays/nusano-content-overlay.yaml
+- type: AgentSkill
+  url: skills/_index.yml
+image: https://nusano.com/wp-content/uploads/2025/07/logo-graphic-full-color.jpeg
+x-enrichment:
+  date: '2026-08-26'
+  status: enriched
+  artifacts_added: 28
+  pass: local-v1

@@ -1,0 +1,126 @@
+generated: '2026-08-26'
+method: derived
+source: openapi/*.yml derived from https://nusano.com/wp-json/wp/v2 + live response headers observed 2026-08-26
+note: 'Cross-cutting semantics of the only callable surface Nusano operates: the WordPress content REST
+  API on nusano.com. Nusano publishes no API documentation of its own, so every value here was read from
+  the live route index or from observed response headers.'
+auth:
+  style: http-basic (WordPress Application Passwords) for writes; anonymous for reads
+  anonymous_read: true
+  authorization_endpoint: https://nusano.com/wp-admin/authorize-application.php
+  cors:
+    allow_headers: Authorization, X-WP-Nonce, Content-Disposition, Content-MD5, Content-Type
+    expose_headers: X-WP-Total, X-WP-TotalPages, Link
+  see: authentication/nusano-authentication.yml
+idempotency:
+  supported: false
+  header: null
+  scope: null
+  retention: null
+  note: No idempotency key is accepted or documented. WordPress REST has no idempotency mechanism, and
+    no Idempotency pointer is emitted in apis.yml.
+pagination:
+  style: page-number
+  params:
+  - name: page
+    default: 1
+  - name: per_page
+    default: 10
+    maximum: 100
+  - name: offset
+  response_headers:
+  - X-WP-Total
+  - X-WP-TotalPages
+  link_header: true
+  observed: 'GET /wp-json/wp/v2/posts?per_page=1 returned x-wp-total: 109, x-wp-totalpages: 109 and a
+    Link: <...page=2>; rel="next" header on 2026-08-26.'
+sparse_fieldsets:
+  supported: true
+  param: _fields
+  note: Comma-separated list of top-level fields to return, e.g. ?_fields=id,slug,title.
+expansion:
+  supported: true
+  param: _embed
+  note: Embeds linked resources (author, featured media, terms) into _embedded on the response.
+field_context:
+  param: context
+  values:
+  - view
+  - embed
+  - edit
+  default: view
+  note: '`edit` requires authentication.'
+filtering_and_sorting:
+  search_param: search
+  order_params:
+  - order
+  - orderby
+  date_params:
+  - after
+  - before
+  - modified_after
+  - modified_before
+  id_params:
+  - include
+  - exclude
+  - slug
+  - parent
+  - author
+  - categories
+  - tags
+metadata:
+  supported: true
+  field: meta
+  note: Registered post meta is exposed on the `meta` object where a plugin opts it in.
+request_id_tracing:
+  supported: false
+  note: No request-id or correlation header is returned. Observed response headers carry only cache (x-litespeed-cache-control),
+    robots and CORS metadata.
+versioning:
+  style: namespace-in-path
+  current: wp/v2
+  discovery: https://nusano.com/wp-json/ lists every registered namespace
+  namespaces_observed:
+  - wp/v2
+  - wp-site-health/v1
+  - wp-block-editor/v1
+  - wp-abilities/v1
+  - oembed/1.0
+  - mcp
+  - rankmath/v1
+  - litespeed/v1
+  - litespeed/v3
+  - divi/v1
+  - leadin/v1
+  - pys/v1
+  - file-manager-advanced/v1
+  note: Third-party plugin namespaces (Rank Math SEO, LiteSpeed Cache, Divi, HubSpot/leadin, PixelYourSite,
+    File Manager Advanced) are present on the index but are vendor plugin surfaces, not Nusano APIs, and
+    are not cataloged here.
+error_envelope:
+  format: wordpress-rest
+  rfc9457: false
+  content_type: application/json
+  shape: '{"code": string, "message": string, "data": {"status": integer}}'
+  see: errors/nusano-problem-types.yml
+rate_limit_signaling:
+  headers: []
+  documented: false
+  note: No X-RateLimit-*, RateLimit-* or Retry-After header was returned on any observed response, and
+    Nusano publishes no limits. See rate-limits/nusano-rate-limits.yml.
+reversibility:
+  grade: na
+  write_surface_public: false
+  note: 'Every write operation on this API (POST/PUT/PATCH/DELETE on posts, pages, media, terms, users,
+    comments) is authentication-gated and returns 401 rest_forbidden anonymously, so there is no public
+    write surface an agent could take an irreversible action on. Reversibility, dry_run_mode and idempotency
+    are all `na` for the surface as published. Nusano documents no cancel, undo, restore or reversal window,
+    and none is asserted here. For completeness: WordPress itself moves deleted posts to a trash status
+    unless ?force=true is passed, but that is core CMS behaviour Nusano does not document, so it is recorded
+    as an observation, not a stated window.'
+  reversal_paths: []
+  windows: []
+dry_run_mode:
+  supported: false
+  grade: na
+  note: No dry-run/validate-only mode; no public write surface.

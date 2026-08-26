@@ -1,0 +1,44 @@
+generated: '2026-08-26'
+method: probed
+source: https://nusano.com/wp-json/mcp
+name: Nusano MCP Server (WordPress MCP Adapter)
+status: published-gated
+deployment:
+  mode: remote
+  endpoint: https://nusano.com/wp-json/mcp/mcp-adapter-default-server
+  auth: unknown
+  verified: probed
+description: 'The nusano.com WordPress REST route index advertises an "mcp" namespace with a single MCP
+  server route at /wp-json/mcp/mcp-adapter-default-server accepting POST, GET and DELETE. This is the
+  WordPress MCP Adapter plugin surface, not a bespoke Nusano server. The endpoint is live but authentication-gated:
+  an anonymous JSON-RPC tools/list and initialize both return HTTP 401 with the WordPress envelope {"code":"rest_forbidden"},
+  as does the companion wp-abilities/v1 abilities registry. The published tool set therefore could NOT
+  be enumerated and no tool list is recorded here — enumerating it requires authenticated introspection
+  with WordPress Application Password credentials that only Nusano can issue.'
+tools: []
+tools_note: Not enumerable anonymously — see probes[]. No tool list is asserted.
+probes:
+- url: https://nusano.com/wp-json/mcp
+  method: GET
+  status: 200
+  note: Route index for the mcp namespace; advertises /mcp/mcp-adapter-default-server (POST, GET, DELETE).
+- url: https://nusano.com/wp-json/mcp/mcp-adapter-default-server
+  method: POST tools/list
+  status: 401
+  note: '{"code":"rest_forbidden","message":"Sorry, you are not allowed to do that.","data":{"status":401}}'
+- url: https://nusano.com/wp-json/mcp/mcp-adapter-default-server
+  method: POST initialize
+  status: 401
+  note: Same rest_forbidden envelope; the server does not answer an anonymous MCP handshake.
+- url: https://nusano.com/wp-json/wp-abilities/v1/abilities
+  method: GET
+  status: 401
+  note: The WordPress Abilities API registry that backs the adapter is gated too.
+- url: https://nusano.com/.well-known/oauth-authorization-server
+  method: GET
+  status: 404
+  note: No OAuth metadata; the gate is WordPress cookie/nonce or Application Passwords, not OAuth.
+- url: https://nusano.com/.well-known/oauth-protected-resource
+  method: GET
+  status: 404
+  note: Absent.

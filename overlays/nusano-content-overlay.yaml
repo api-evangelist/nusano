@@ -1,0 +1,62 @@
+overlay: 1.0.0
+info:
+  title: Nusano Content API — API Evangelist enhancements
+  version: 1.0.0
+x-generated: '2026-08-26'
+x-method: generated
+x-source: openapi/*.yml in this repo
+x-extends:
+- openapi/nusano-categories-api-openapi.yml
+- openapi/nusano-comments-api-openapi.yml
+- openapi/nusano-discovery-api-openapi.yml
+- openapi/nusano-media-api-openapi.yml
+- openapi/nusano-pages-api-openapi.yml
+- openapi/nusano-posts-api-openapi.yml
+- openapi/nusano-search-api-openapi.yml
+- openapi/nusano-tags-api-openapi.yml
+- openapi/nusano-users-api-openapi.yml
+x-note: Captures the enhancements API Evangelist applies on top of the derived Nusano content specs. It
+  does not mutate them. Applying it stamps provenance, external documentation and the runtime semantics
+  recorded in conventions/ and errors/ onto each document.
+actions:
+- target: $.info
+  description: Stamp API Evangelist provenance so a consumer can tell this spec was derived, not published
+    by Nusano.
+  update:
+    x-api-evangelist-profile: https://apis.io/provider/nusano
+    x-derived-by: API Evangelist enrichment pipeline
+    x-derived-from: https://nusano.com/wp-json/wp/v2
+    x-provider-published: false
+    x-llms-txt: https://nusano.com/llms.txt
+- target: $
+  description: Attach external documentation pointing at the live route index, which is the only contract
+    Nusano actually serves.
+  update:
+    externalDocs:
+      description: Live WordPress REST route index for nusano.com
+      url: https://nusano.com/wp-json/wp/v2
+- target: $
+  description: Record the cross-cutting runtime semantics measured against the live API.
+  update:
+    x-conventions:
+      pagination:
+        params:
+        - page
+        - per_page
+        - offset
+        headers:
+        - X-WP-Total
+        - X-WP-TotalPages
+        link_header: true
+      sparse_fieldsets: _fields
+      expansion: _embed
+      error_envelope: wordpress-rest (code/message/data.status), not RFC 9457
+      idempotency: false
+      rate_limit_headers: []
+      reversibility: na — no public write surface
+- target: $.paths.*[?(@.post || @.put || @.patch || @.delete)]
+  description: Flag every write operation as authentication-gated; anonymous callers receive 401 rest_forbidden.
+  update:
+    x-access: authenticated-only
+    x-anonymous-status: 401
+    x-anonymous-code: rest_forbidden

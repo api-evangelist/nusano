@@ -1,0 +1,58 @@
+generated: '2026-08-26'
+method: derived
+source: openapi/*.yml + live probes of https://nusano.com 2026-08-26
+note: Reward-only assertions read from the contract and from live behaviour. Nusano publishes no compliance
+  or certification program of its own, so NO Compliance pointer is emitted in apis.yml.
+standards:
+- id: oauth2
+  conforms: false
+  evidence: No oauth2 securityScheme in any spec; /.well-known/oauth-authorization-server and /.well-known/oauth-protected-resource
+    both 404.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404.
+- id: rfc9457
+  conforms: false
+  evidence: Errors use the WordPress {code,message,data.status} envelope with content-type application/json,
+    not application/problem+json.
+- id: rfc9116
+  conforms: false
+  evidence: /.well-known/security.txt returns 404.
+- id: rfc8594
+  conforms: false
+  evidence: No Sunset or Deprecation response headers observed.
+- id: rfc8288
+  conforms: true
+  evidence: 'Web Linking: collection responses return a Link header with rel="next"/"prev", and every
+    resource carries a _links object (HAL-style) — observed on GET /wp-json/wp/v2/posts?per_page=1.'
+- id: pagination
+  conforms: true
+  evidence: page/per_page/offset query parameters plus X-WP-Total and X-WP-TotalPages response headers,
+    declared in the route index and observed live.
+- id: idempotency
+  conforms: false
+  evidence: No idempotency key mechanism; see conventions/nusano-conventions.yml.
+- id: json:api
+  conforms: false
+  evidence: Responses are plain JSON resource objects, not JSON:API documents.
+- id: odata
+  conforms: false
+  evidence: No $metadata surface.
+- id: openapi
+  conforms: false
+  evidence: 'Nusano publishes no OpenAPI. The specs in openapi/ were derived by API Evangelist from the
+    WordPress route index and are marked x-provider-published: false.'
+- id: mcp
+  conforms: null
+  evidence: An MCP endpoint is advertised at /wp-json/mcp/mcp-adapter-default-server but returns 401 to
+    an anonymous initialize, so protocol conformance could not be observed.
+- id: cors
+  conforms: true
+  evidence: Access-Control-Allow-Headers and Access-Control-Expose-Headers are returned on wp/v2 responses.
+domain_standards:
+  checked: true
+  found: []
+  note: 'Nusano operates in radioisotope production, nuclear fuel (HALEU) and nuclear batteries. The sector
+    standards that would be probed here — HL7/DICOM for imaging, ISO 20022 for finance, SCIM/OData/OpenRTB
+    for platform markets — do not apply to a content CMS API, and Nusano ships no contract in its own
+    domain. Reward-only: nothing is invented to fill the slot.'

@@ -1,0 +1,152 @@
+generated: '2026-08-26'
+method: probed
+source: live anonymous GET requests to https://nusano.com/wp-json/wp/v2 on 2026-08-26
+note: Real, unedited response payloads captured from the live API, trimmed with the API's own ?_fields
+  parameter. Nothing here is synthesised. They exist because Nusano publishes no examples of its own and
+  the derived OpenAPI would otherwise carry none.
+examples:
+- name: post
+  operationId: getPosts
+  request: GET /wp/v2/posts?per_page=1&_fields=id,date,slug,link,title,excerpt,categories,tags,author,featured_media,type,status
+  status: 200
+  response:
+    id: 295010
+    date: '2026-06-26T12:43:26'
+    slug: beam-on-target-milestone
+    status: publish
+    type: post
+    link: https://nusano.com/beam-on-target-milestone/
+    title:
+      rendered: Nusano Completes Major Milestone Toward Commercial Radioisotope Production
+    excerpt:
+      rendered: '<p>WEST VALLEY CITY, Utah — On Thursday, June 25, 2026, Nusano successfully accelerated
+        particles from the company’s proprietary ion source through the low-energy beam transport (LEBT)
+        and radiofrequency quadrupole (RFQ) sections of its linear accelerator (LINAC) to a target. Known
+        internally as “Beam on Target,” the accomplishment is the first of three milestones en route to
+        bringing the company’s radioisotope production platform online by the end of 2026. The Beam on
+        Target milestone confirms key front-end accelerator systems, demonstrating the linear accelerator-based
+        platform’s ability to generate, shape and deliver a particle beam to a defined endpoint. During
+        the trial, particles reached 28% of the platform’s full energy. &nbsp; Upcoming milestones Two
+        final demonstrations are planned in 2026 to validate the full Nusano system: September 2026 –
+        Nusano will send a beam through its full LINAC to a target, demonstrating an initial radioisotope
+        production capability. December 2026 – Nusano will send a beam through the LINAC and use magnets
+        to steer accelerated particles to a target in a target bay, validating the full production platform.
+        &nbsp; Urgent need for radioisotopes Reliable access to radioisotopes remains a limiting factor
+        for many diagnostic and therapeutic radiopharmaceutical programs. The Nusano platform is designed
+        to [&hellip;]</p>
+
+        '
+      protected: false
+    author: 2
+    featured_media: 295012
+    categories:
+    - 93
+    tags:
+    - 342
+    - 341
+    - 33
+    - 343
+- name: categories
+  operationId: getCategories
+  request: GET /wp/v2/categories?per_page=3&_fields=id,count,name,slug,taxonomy,parent,link
+  status: 200
+  response:
+  - id: 282
+    count: 10
+    link: https://nusano.com/category/awards-honors/
+    name: Awards &amp; Honors
+    slug: awards-honors
+    taxonomy: category
+    parent: 0
+  - id: 93
+    count: 18
+    link: https://nusano.com/category/blog/
+    name: Blog
+    slug: blog
+    taxonomy: category
+    parent: 0
+  - id: 64
+    count: 0
+    link: https://nusano.com/category/community/
+    name: Community
+    slug: community
+    taxonomy: category
+    parent: 0
+- name: search
+  operationId: getSearch
+  request: GET /wp/v2/search?search=HALEU&per_page=2
+  status: 200
+  response:
+  - id: 295452
+    title: Difference between HALEU and LEU
+    url: https://nusano.com/haleu/haleu-knowledge-center/difference-between-haleu-and-leu/
+    type: post
+    subtype: page
+    _links:
+      self:
+      - embeddable: true
+        href: https://nusano.com/wp-json/wp/v2/pages/295452
+        targetHints:
+          allow:
+          - GET
+      about:
+      - href: https://nusano.com/wp-json/wp/v2/types/page
+      collection:
+      - href: https://nusano.com/wp-json/wp/v2/search
+  - id: 295347
+    title: Why Advanced Nuclear Reactors Need HALEU
+    url: https://nusano.com/haleu/haleu-knowledge-center/why-advanced-nuclear-reactors-need-haleu/
+    type: post
+    subtype: page
+    _links:
+      self:
+      - embeddable: true
+        href: https://nusano.com/wp-json/wp/v2/pages/295347
+        targetHints:
+          allow:
+          - GET
+      about:
+      - href: https://nusano.com/wp-json/wp/v2/types/page
+      collection:
+      - href: https://nusano.com/wp-json/wp/v2/search
+- name: media
+  operationId: getMedia
+  request: GET /wp/v2/media?per_page=1&_fields=id,date,slug,link,title,media_type,mime_type,source_url,alt_text
+  status: 200
+  response:
+    id: 295528
+    date: '2026-07-27T22:07:48'
+    slug: isotope_separation_exact_1to20_lines_and_dots
+    link: https://nusano.com/isotope_separation_exact_1to20_lines_and_dots/
+    title:
+      rendered: isotope_separation_exact_1to20_lines_and_dots
+    alt_text: ''
+    media_type: image
+    mime_type: image/svg+xml
+    source_url: https://nusano.com/wp-content/uploads/2026/07/isotope_separation_exact_1to20_lines_and_dots.svg
+- name: users
+  operationId: getUsers
+  request: GET /wp/v2/users?per_page=2&_fields=id,name,url,description,link,slug
+  status: 200
+  response:
+  - id: 1
+    name: gospringfield
+    url: https://nusano.com
+    description: ''
+    link: https://nusano.com/author/gospringfield/
+    slug: gospringfield
+  - id: 2
+    name: Scott Larrivee
+    url: ''
+    description: ''
+    link: https://nusano.com/author/scott/
+    slug: scott
+- name: forbidden
+  operationId: n/a
+  request: POST /wp-json/mcp/mcp-adapter-default-server {"jsonrpc":"2.0","id":1,"method":"tools/list"}
+  status: 401
+  response:
+    code: rest_forbidden
+    message: Sorry, you are not allowed to do that.
+    data:
+      status: 401

@@ -1,0 +1,827 @@
+openapi: 3.1.0
+info:
+  title: Nusano Content API (WordPress REST wp/v2) Media API
+  version: wp/v2
+  summary: 'Public read surface of nusano.com content: news releases, Nu Blog posts, HALEU knowledge-center and
+    marketing pages, the media library, taxonomies and site search.'
+  description: 'Nusano publishes nusano.com on WordPress, which exposes the WordPress REST API at https://nusano.com/wp-json/.
+    The `wp/v2` namespace is anonymously readable and returns the company''s news releases, Nu Blog posts, event
+    notices, marketing and HALEU knowledge-center pages, the media library, categories, tags and a site-wide search
+    endpoint as JSON.
+
+
+    This document was DERIVED mechanically by API Evangelist from the route-discovery document served at https://nusano.com/wp-json/wp/v2
+    on 2026-08-26 — every path, method and parameter below is taken verbatim from that descriptor. Nusano does not
+    publish an OpenAPI definition of its own, and this is NOT a product API: Nusano manufactures radioisotopes,
+    and this is the content API its CMS exposes. Write operations are declared by the route index but require authentication
+    (WordPress Application Passwords over HTTP Basic); anonymous writes return 401 `rest_forbidden`.'
+  contact:
+    name: Nusano
+    url: https://nusano.com/
+  x-derived-by: API Evangelist enrichment pipeline
+  x-derived-from: https://nusano.com/wp-json/wp/v2
+  x-derived-on: '2026-08-26'
+  x-provider-published: false
+servers:
+- url: https://nusano.com/wp-json
+  description: Production
+tags:
+- name: Media
+paths:
+  /wp/v2/media:
+    get:
+      operationId: getMedia
+      summary: GET /wp/v2/media
+      description: 'Media library: photography, logos, media-kit assets and documents.'
+      tags:
+      - Media
+      parameters:
+      - name: context
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+        description: Scope under which the request is made; determines fields present in response.
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 1
+          minimum: 1
+        description: Current page of the collection.
+      - name: per_page
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 100
+        description: Maximum number of items to be returned in result set.
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Limit results to those matching a string.
+      - name: after
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+        description: Limit response to posts published after a given ISO8601 compliant date.
+      - name: modified_after
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+        description: Limit response to posts modified after a given ISO8601 compliant date.
+      - name: author
+        in: query
+        required: false
+        schema:
+          type: array
+          default: []
+          items:
+            type: integer
+        description: Limit result set to posts assigned to specific authors.
+      - name: author_exclude
+        in: query
+        required: false
+        schema:
+          type: array
+          default: []
+          items:
+            type: integer
+        description: Ensure result set excludes posts assigned to specific authors.
+      - name: before
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+        description: Limit response to posts published before a given ISO8601 compliant date.
+      - name: modified_before
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+        description: Limit response to posts modified before a given ISO8601 compliant date.
+      - name: exclude
+        in: query
+        required: false
+        schema:
+          type: array
+          default: []
+          items:
+            type: integer
+        description: Ensure result set excludes specific IDs.
+      - name: include
+        in: query
+        required: false
+        schema:
+          type: array
+          default: []
+          items:
+            type: integer
+        description: Limit result set to specific IDs.
+      - name: search_semantics
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - exact
+        description: How to interpret the search input.
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Offset the result set by a specific number of items.
+      - name: order
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: desc
+        description: Order sort attribute ascending or descending.
+      - name: orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - author
+          - date
+          - id
+          - include
+          - modified
+          - parent
+          - relevance
+          - slug
+          - include_slugs
+          - title
+          default: date
+        description: Sort collection by post attribute.
+      - name: parent
+        in: query
+        required: false
+        schema:
+          type: array
+          default: []
+          items:
+            type: integer
+        description: Limit result set to items with particular parent IDs.
+      - name: parent_exclude
+        in: query
+        required: false
+        schema:
+          type: array
+          default: []
+          items:
+            type: integer
+        description: Limit result set to all items except those of a particular parent ID.
+      - name: search_columns
+        in: query
+        required: false
+        schema:
+          type: array
+          default: []
+          items:
+            type: string
+            enum:
+            - post_title
+            - post_content
+            - post_excerpt
+        description: Array of column names to be searched.
+      - name: slug
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Limit result set to posts with one or more specific slugs.
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: array
+          default: inherit
+          items:
+            type: string
+            enum:
+            - inherit
+            - private
+            - trash
+        description: Limit result set to posts assigned one or more statuses.
+      - name: media_type
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - image
+            - video
+            - text
+            - application
+            - audio
+        description: Limit result set to attachments of a particular media type or media types.
+      - name: mime_type
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Limit result set to attachments of a particular MIME type or MIME types.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+        '400':
+          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`,
+            `rest_invalid_param`).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401
+            with a JSON error envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found — no route matched (`rest_no_route`) or the resource id does not exist (`rest_post_invalid_id`).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      operationId: createMedia
+      summary: POST /wp/v2/media
+      description: Write operation declared by the WordPress route index. It requires authentication (WordPress
+        Application Passwords over HTTP Basic); anonymous calls return 401 `rest_forbidden`.
+      tags:
+      - Media
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type: string
+                  format: date-time
+                  description: The date the post was published, in the site's timezone.
+                date_gmt:
+                  type: string
+                  format: date-time
+                  description: The date the post was published, as GMT.
+                slug:
+                  type: string
+                  description: An alphanumeric identifier for the post unique to its type.
+                status:
+                  type: string
+                  enum:
+                  - publish
+                  - future
+                  - draft
+                  - pending
+                  - private
+                  description: A named status for the post.
+                title:
+                  type: object
+                  description: The title for the post.
+                author:
+                  type: integer
+                  description: The ID for the author of the post.
+                featured_media:
+                  type: integer
+                  description: The ID of the featured media for the post.
+                comment_status:
+                  type: string
+                  enum:
+                  - open
+                  - closed
+                  description: Whether or not comments are open on the post.
+                ping_status:
+                  type: string
+                  enum:
+                  - open
+                  - closed
+                  description: Whether or not the post can be pinged.
+                meta:
+                  type: object
+                  description: Meta fields.
+                template:
+                  type: string
+                  description: The theme file to use to display the post.
+                alt_text:
+                  type: string
+                  description: Alternative text to display when attachment is not displayed.
+                caption:
+                  type: object
+                  description: The attachment caption.
+                description:
+                  type: object
+                  description: The attachment description.
+                post:
+                  type: integer
+                  description: The ID for the associated post of the attachment.
+                generate_sub_sizes:
+                  type: boolean
+                  default: true
+                  description: Whether to generate image sub sizes.
+                convert_format:
+                  type: boolean
+                  default: true
+                  description: Whether to convert image formats.
+                url:
+                  type: string
+                  format: uri
+                  description: URL of an external image to sideload into the media library, instead of uploading
+                    a file.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`,
+            `rest_invalid_param`).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401
+            with a JSON error envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found — no route matched (`rest_no_route`) or the resource id does not exist (`rest_post_invalid_id`).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - applicationPassword: []
+  /wp/v2/media/{id}:
+    get:
+      operationId: getMediaById
+      summary: GET /wp/v2/media/{id}
+      description: 'Media library: photography, logos, media-kit assets and documents.'
+      tags:
+      - Media
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id` as declared by the WordPress route index.
+      - name: context
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+        description: Scope under which the request is made; determines fields present in response.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`,
+            `rest_invalid_param`).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401
+            with a JSON error envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found — no route matched (`rest_no_route`) or the resource id does not exist (`rest_post_invalid_id`).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      operationId: createMediaById
+      summary: POST /wp/v2/media/{id}
+      description: Write operation declared by the WordPress route index. It requires authentication (WordPress
+        Application Passwords over HTTP Basic); anonymous calls return 401 `rest_forbidden`.
+      tags:
+      - Media
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id` as declared by the WordPress route index.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type: string
+                  format: date-time
+                  description: The date the post was published, in the site's timezone.
+                date_gmt:
+                  type: string
+                  format: date-time
+                  description: The date the post was published, as GMT.
+                slug:
+                  type: string
+                  description: An alphanumeric identifier for the post unique to its type.
+                status:
+                  type: string
+                  enum: &id001
+                  - publish
+                  - future
+                  - draft
+                  - pending
+                  - private
+                  description: A named status for the post.
+                title:
+                  type: object
+                  description: The title for the post.
+                author:
+                  type: integer
+                  description: The ID for the author of the post.
+                featured_media:
+                  type: integer
+                  description: The ID of the featured media for the post.
+                comment_status:
+                  type: string
+                  enum: &id002
+                  - open
+                  - closed
+                  description: Whether or not comments are open on the post.
+                ping_status:
+                  type: string
+                  enum: &id003
+                  - open
+                  - closed
+                  description: Whether or not the post can be pinged.
+                meta:
+                  type: object
+                  description: Meta fields.
+                template:
+                  type: string
+                  description: The theme file to use to display the post.
+                alt_text:
+                  type: string
+                  description: Alternative text to display when attachment is not displayed.
+                caption:
+                  type: object
+                  description: The attachment caption.
+                description:
+                  type: object
+                  description: The attachment description.
+                post:
+                  type: integer
+                  description: The ID for the associated post of the attachment.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`,
+            `rest_invalid_param`).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401
+            with a JSON error envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found — no route matched (`rest_no_route`) or the resource id does not exist (`rest_post_invalid_id`).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - applicationPassword: []
+    put:
+      operationId: updateMediaById
+      summary: PUT /wp/v2/media/{id}
+      description: Write operation declared by the WordPress route index. It requires authentication (WordPress
+        Application Passwords over HTTP Basic); anonymous calls return 401 `rest_forbidden`.
+      tags:
+      - Media
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id` as declared by the WordPress route index.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type: string
+                  format: date-time
+                  description: The date the post was published, in the site's timezone.
+                date_gmt:
+                  type: string
+                  format: date-time
+                  description: The date the post was published, as GMT.
+                slug:
+                  type: string
+                  description: An alphanumeric identifier for the post unique to its type.
+                status:
+                  type: string
+                  enum: *id001
+                  description: A named status for the post.
+                title:
+                  type: object
+                  description: The title for the post.
+                author:
+                  type: integer
+                  description: The ID for the author of the post.
+                featured_media:
+                  type: integer
+                  description: The ID of the featured media for the post.
+                comment_status:
+                  type: string
+                  enum: *id002
+                  description: Whether or not comments are open on the post.
+                ping_status:
+                  type: string
+                  enum: *id003
+                  description: Whether or not the post can be pinged.
+                meta:
+                  type: object
+                  description: Meta fields.
+                template:
+                  type: string
+                  description: The theme file to use to display the post.
+                alt_text:
+                  type: string
+                  description: Alternative text to display when attachment is not displayed.
+                caption:
+                  type: object
+                  description: The attachment caption.
+                description:
+                  type: object
+                  description: The attachment description.
+                post:
+                  type: integer
+                  description: The ID for the associated post of the attachment.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`,
+            `rest_invalid_param`).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401
+            with a JSON error envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found — no route matched (`rest_no_route`) or the resource id does not exist (`rest_post_invalid_id`).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - applicationPassword: []
+    patch:
+      operationId: patchMediaById
+      summary: PATCH /wp/v2/media/{id}
+      description: Write operation declared by the WordPress route index. It requires authentication (WordPress
+        Application Passwords over HTTP Basic); anonymous calls return 401 `rest_forbidden`.
+      tags:
+      - Media
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id` as declared by the WordPress route index.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type: string
+                  format: date-time
+                  description: The date the post was published, in the site's timezone.
+                date_gmt:
+                  type: string
+                  format: date-time
+                  description: The date the post was published, as GMT.
+                slug:
+                  type: string
+                  description: An alphanumeric identifier for the post unique to its type.
+                status:
+                  type: string
+                  enum: *id001
+                  description: A named status for the post.
+                title:
+                  type: object
+                  description: The title for the post.
+                author:
+                  type: integer
+                  description: The ID for the author of the post.
+                featured_media:
+                  type: integer
+                  description: The ID of the featured media for the post.
+                comment_status:
+                  type: string
+                  enum: *id002
+                  description: Whether or not comments are open on the post.
+                ping_status:
+                  type: string
+                  enum: *id003
+                  description: Whether or not the post can be pinged.
+                meta:
+                  type: object
+                  description: Meta fields.
+                template:
+                  type: string
+                  description: The theme file to use to display the post.
+                alt_text:
+                  type: string
+                  description: Alternative text to display when attachment is not displayed.
+                caption:
+                  type: object
+                  description: The attachment caption.
+                description:
+                  type: object
+                  description: The attachment description.
+                post:
+                  type: integer
+                  description: The ID for the associated post of the attachment.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`,
+            `rest_invalid_param`).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401
+            with a JSON error envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found — no route matched (`rest_no_route`) or the resource id does not exist (`rest_post_invalid_id`).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - applicationPassword: []
+    delete:
+      operationId: deleteMediaById
+      summary: DELETE /wp/v2/media/{id}
+      description: Write operation declared by the WordPress route index. It requires authentication (WordPress
+        Application Passwords over HTTP Basic); anonymous calls return 401 `rest_forbidden`.
+      tags:
+      - Media
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id` as declared by the WordPress route index.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`,
+            `rest_invalid_param`).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401
+            with a JSON error envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found — no route matched (`rest_no_route`) or the resource id does not exist (`rest_post_invalid_id`).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - applicationPassword: []
+components:
+  securitySchemes:
+    applicationPassword:
+      type: http
+      scheme: basic
+      description: WordPress Application Passwords over HTTP Basic. Anonymous read is permitted on these routes;
+        every write requires credentials.
+  schemas:
+    Error:
+      type: object
+      description: The WordPress REST error envelope.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code, e.g. `rest_forbidden`.
+        message:
+          type: string
+          description: Human-readable error message.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status code.
+      required:
+      - code
+      - message

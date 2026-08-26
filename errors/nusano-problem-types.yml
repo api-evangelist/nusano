@@ -1,0 +1,74 @@
+generated: '2026-08-26'
+method: derived
+source: openapi/*.yml + live error responses observed on https://nusano.com/wp-json/ 2026-08-26
+format: wordpress-rest
+rfc9457: false
+note: Nusano publishes no error reference. Every entry below was observed live against nusano.com or is
+  declared by the WordPress route index that the OpenAPI in this repo was derived from. The envelope is
+  the WordPress REST shape, not RFC 9457 application/problem+json.
+envelope:
+  content_type: application/json
+  fields:
+  - name: code
+    type: string
+    description: Machine-readable error code.
+  - name: message
+    type: string
+    description: Human-readable message.
+  - name: data.status
+    type: integer
+    description: HTTP status code, repeated in the body.
+  - name: data.params
+    type: array
+    description: Present on parameter errors; names the offending parameters.
+problem_types:
+- code: rest_forbidden
+  status: 401
+  title: Not allowed
+  message: Sorry, you are not allowed to do that.
+  observed_on: POST /wp-json/mcp/mcp-adapter-default-server (tools/list, initialize); GET /wp-json/wp-abilities/v1/abilities;
+    GET /wp-json/wp/v2/settings
+  remediation: Authenticate with a WordPress Application Password over HTTP Basic. Nusano issues these;
+    there is no self-service signup.
+- code: rest_cannot_view
+  status: 401
+  title: Cannot view resource
+  message: Sorry, you are not allowed to view menus.
+  observed_on: GET /wp-json/wp/v2/menus
+  remediation: Authenticate with an account holding the required capability.
+- code: rest_cannot_view_themes
+  status: 401
+  title: Cannot view themes
+  message: Sorry, you are not allowed to view themes.
+  observed_on: GET /wp-json/wp/v2/themes
+  remediation: Administrative capability required.
+- code: rest_cannot_view_plugins
+  status: 401
+  title: Cannot view plugins
+  message: Sorry, you are not allowed to manage plugins for this site.
+  observed_on: GET /wp-json/wp/v2/plugins
+  remediation: Administrative capability required.
+- code: rest_missing_callback_param
+  status: 400
+  title: Missing parameter
+  message: 'Missing parameter(s): url'
+  observed_on: GET /wp-json/oembed/1.0/embed
+  remediation: Supply every parameter named in data.params.
+- code: rest_invalid_param
+  status: 400
+  title: Invalid parameter
+  message: 'Invalid parameter(s): <name>'
+  observed_on: Declared by the route index arg schemas (enum/minimum/maximum violations).
+  remediation: Correct the parameter to satisfy the schema published in the route index.
+- code: rest_no_route
+  status: 404
+  title: No route matched
+  message: No route was found matching the URL and request method.
+  observed_on: Any unregistered /wp-json/ path.
+  remediation: Read the live route index at https://nusano.com/wp-json/wp/v2.
+- code: rest_post_invalid_id
+  status: 404
+  title: Invalid resource id
+  message: Invalid post ID.
+  observed_on: GET /wp-json/wp/v2/posts/{id} with an unknown id.
+  remediation: List the collection first and use an id it returns.

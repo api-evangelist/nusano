@@ -1,0 +1,21 @@
+generated: '2026-08-26'
+method: searched
+source: registry.npmjs.org, pypi.org, github.com/Nusano — searched 2026-08-26
+package_count: 0
+note: No first-party Nusano client library exists in any package registry. npm search for "nusano" returns
+  0 results; pypi.org/pypi/nusano/json returns 404. The github.com/Nusano organization is genuine — its
+  single public repository, Nusano/nusano.github.io, serves a static marketing page titled "Nusano" with
+  the description "We are on a mission to reengineer radioisotope production" — but it is HTML and assets,
+  last pushed 2023-03-09, and contains no SDK, no CLI and no code intended for consumption. NO SDKs pointer
+  is emitted in apis.yml, because there is no SDK.
+packages: []
+searched_registries:
+- registry: npm
+  query: https://registry.npmjs.org/-/v1/search?text=nusano
+  result: 0 objects
+- registry: pypi
+  query: https://pypi.org/pypi/nusano/json
+  result: 404 Not Found
+- registry: github
+  query: https://api.github.com/orgs/Nusano/repos
+  result: 1 repo (nusano.github.io) — static site, not a package

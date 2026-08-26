@@ -1,0 +1,46 @@
+generated: '2026-08-26'
+method: searched
+source: https://nusano.com/ (site walk, 2026-08-26) + https://nusano.com/wp-json/wp/v2
+versioning:
+  scheme: WordPress REST namespace versioning (wp/v2) — inherited from the CMS, not authored by Nusano.
+  current: wp/v2
+  policy_published: false
+  policy_url: null
+deprecation:
+  policy_published: false
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  deprecated_operations: []
+  note: No deprecation or sunset policy, and no RFC 8594 Sunset/Deprecation headers were observed. No
+    Deprecation pointer is emitted in apis.yml.
+status_page:
+  published: false
+  url: null
+  probed:
+  - url: https://status.nusano.com
+    result: NXDOMAIN
+  note: No status page on any host. status.nusano.com does not resolve. No StatusPage pointer is emitted.
+sla:
+  published: false
+  url: null
+  note: Nusano is a radioisotope manufacturer; its published commitments are isotope supply agreements
+    (Ratio Therapeutics, Ariceum Therapeutics, Clarity Pharmaceuticals), not API service levels.
+changelog:
+  published: false
+  url: null
+  note: No dated API changelog. The company newsroom at https://nusano.com/news/ is a press-release feed,
+    not a release-note stream, so no ChangeLog pointer is emitted.
+company_milestones:
+- date: '2026-06-25'
+  event: '"Beam on Target" — particles accelerated through the LEBT and RFQ sections of the LINAC to a
+    target at 28% of full energy; first of three milestones to bring the production platform online by
+    end of 2026.'
+  source: https://nusano.com/beam-on-target-milestone/
+- date: '2025-08-21'
+  event: Ribbon cutting on the 190,000-square-foot radioisotope production facility in West Valley City,
+    Utah.
+  source: https://nusano.com/nusano-cuts-ribbon-on-state-of-the-art-radioisotope-production-facility/
+- date: 2024-10
+  event: Series C financing of over $115M announced to commercialize radioisotopes.
+  source: https://nusano.com/series-c/

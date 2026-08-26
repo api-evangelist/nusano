@@ -1,0 +1,41 @@
+generated: '2026-08-26'
+method: derived
+source: mcp/nusano-mcp.yml + openapi/*.yml (route index https://nusano.com/wp-json/wp/v2)
+note: 'Nusano runs BOTH an MCP endpoint and a REST content API on the same WordPress installation, so
+  a crosswalk is emitted. It is deliberately EMPTY on the tool side: the MCP server returns 401 to an
+  anonymous tools/list, so the real tool names and inputSchemas are unknown. Nothing is mapped by guesswork
+  — the WordPress MCP Adapter''s default tool set is a property of the plugin build and site configuration,
+  not something we observed on nusano.com. Re-run this artifact if the endpoint is ever opened or Nusano
+  publishes its tool list.'
+surfaces:
+  openapi:
+    files:
+    - openapi/nusano-categories-api-openapi.yml
+    - openapi/nusano-comments-api-openapi.yml
+    - openapi/nusano-discovery-api-openapi.yml
+    - openapi/nusano-media-api-openapi.yml
+    - openapi/nusano-pages-api-openapi.yml
+    - openapi/nusano-posts-api-openapi.yml
+    - openapi/nusano-search-api-openapi.yml
+    - openapi/nusano-tags-api-openapi.yml
+    - openapi/nusano-users-api-openapi.yml
+    base: https://nusano.com/wp-json
+    gated: false
+    note: Anonymously readable GET surface; write operations are 401-gated.
+  graphql:
+    endpoint: null
+    gated: null
+    note: No GraphQL surface; https://nusano.com/graphql returns 404.
+  mcp:
+    url: https://nusano.com/wp-json/mcp/mcp-adapter-default-server
+    gated: true
+    note: HTTP 401 rest_forbidden on tools/list and initialize.
+crosswalk: []
+mcp_only: []
+rest_only: []
+coverage:
+  mcp_tools_known: 0
+  rest_operations: 61
+  mapped: 0
+  confidence: none
+  reason: mcp-tools-list-auth-gated

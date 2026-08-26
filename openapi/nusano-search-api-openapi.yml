@@ -1,0 +1,174 @@
+openapi: 3.1.0
+info:
+  title: Nusano Content API (WordPress REST wp/v2) Search API
+  version: wp/v2
+  summary: 'Public read surface of nusano.com content: news releases, Nu Blog posts, HALEU knowledge-center and
+    marketing pages, the media library, taxonomies and site search.'
+  description: 'Nusano publishes nusano.com on WordPress, which exposes the WordPress REST API at https://nusano.com/wp-json/.
+    The `wp/v2` namespace is anonymously readable and returns the company''s news releases, Nu Blog posts, event
+    notices, marketing and HALEU knowledge-center pages, the media library, categories, tags and a site-wide search
+    endpoint as JSON.
+
+
+    This document was DERIVED mechanically by API Evangelist from the route-discovery document served at https://nusano.com/wp-json/wp/v2
+    on 2026-08-26 — every path, method and parameter below is taken verbatim from that descriptor. Nusano does not
+    publish an OpenAPI definition of its own, and this is NOT a product API: Nusano manufactures radioisotopes,
+    and this is the content API its CMS exposes. Write operations are declared by the route index but require authentication
+    (WordPress Application Passwords over HTTP Basic); anonymous writes return 401 `rest_forbidden`.'
+  contact:
+    name: Nusano
+    url: https://nusano.com/
+  x-derived-by: API Evangelist enrichment pipeline
+  x-derived-from: https://nusano.com/wp-json/wp/v2
+  x-derived-on: '2026-08-26'
+  x-provider-published: false
+servers:
+- url: https://nusano.com/wp-json
+  description: Production
+tags:
+- name: Search
+paths:
+  /wp/v2/search:
+    get:
+      operationId: getSearch
+      summary: GET /wp/v2/search
+      description: Site-wide search across posts and pages.
+      tags:
+      - Search
+      parameters:
+      - name: context
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          default: view
+        description: Scope under which the request is made; determines fields present in response.
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 1
+          minimum: 1
+        description: Current page of the collection.
+      - name: per_page
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 100
+        description: Maximum number of items to be returned in result set.
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Limit results to those matching a string.
+      - name: type
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - post
+          - term
+          - post-format
+          default: post
+        description: Limit results to items of an object type.
+      - name: subtype
+        in: query
+        required: false
+        schema:
+          type: array
+          default: any
+          items:
+            type: string
+            enum:
+            - post
+            - page
+            - project
+            - category
+            - post_tag
+            - project_category
+            - project_tag
+            - any
+        description: Limit results to items of one or more object subtypes.
+      - name: exclude
+        in: query
+        required: false
+        schema:
+          type: array
+          default: []
+          items:
+            type: integer
+        description: Ensure result set excludes specific IDs.
+      - name: include
+        in: query
+        required: false
+        schema:
+          type: array
+          default: []
+          items:
+            type: integer
+        description: Limit result set to specific IDs.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+        '400':
+          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`,
+            `rest_invalid_param`).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401
+            with a JSON error envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found — no route matched (`rest_no_route`) or the resource id does not exist (`rest_post_invalid_id`).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    applicationPassword:
+      type: http
+      scheme: basic
+      description: WordPress Application Passwords over HTTP Basic. Anonymous read is permitted on these routes;
+        every write requires credentials.
+  schemas:
+    Error:
+      type: object
+      description: The WordPress REST error envelope.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code, e.g. `rest_forbidden`.
+        message:
+          type: string
+          description: Human-readable error message.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status code.
+      required:
+      - code
+      - message

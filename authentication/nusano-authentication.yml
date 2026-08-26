@@ -1,0 +1,59 @@
+generated: '2026-08-26'
+method: derived
+source: openapi/nusano-categories-api-openapi.yml, openapi/nusano-comments-api-openapi.yml, openapi/nusano-discovery-api-openapi.yml,
+  openapi/nusano-media-api-openapi.yml, openapi/nusano-pages-api-openapi.yml, openapi/nusano-posts-api-openapi.yml,
+  openapi/nusano-search-api-openapi.yml, openapi/nusano-tags-api-openapi.yml, openapi/nusano-users-api-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: applicationPassword
+  type: http
+  scheme: basic
+  description: WordPress Application Passwords over HTTP Basic. Anonymous read is permitted on these routes;
+    every write requires credentials.
+  sources:
+  - openapi/nusano-categories-api-openapi.yml
+  - openapi/nusano-comments-api-openapi.yml
+  - openapi/nusano-discovery-api-openapi.yml
+  - openapi/nusano-media-api-openapi.yml
+  - openapi/nusano-pages-api-openapi.yml
+  - openapi/nusano-posts-api-openapi.yml
+  - openapi/nusano-search-api-openapi.yml
+  - openapi/nusano-tags-api-openapi.yml
+  - openapi/nusano-users-api-openapi.yml
+note: 'Nusano publishes no authentication documentation — there is no developer portal on nusano.com.
+  This profile was DERIVED from the specs in openapi/, which were themselves derived from the live WordPress
+  route index. It was then confirmed against live probes: anonymous GET on the wp/v2 content collections
+  returns 200, and every write plus the MCP and abilities endpoints return 401 with the WordPress rest_forbidden
+  envelope.'
+anonymous_read: true
+authorization_endpoint: https://nusano.com/wp-admin/authorize-application.php
+authorization_endpoint_source: https://nusano.com/wp-json/ (authentication.application-passwords.endpoints.authorization)
+self_service_signup: false
+probes:
+- url: https://nusano.com/wp-json/wp/v2/posts?per_page=1
+  method: GET
+  auth: none
+  status: 200
+- url: https://nusano.com/wp-json/wp/v2/settings
+  method: GET
+  auth: none
+  status: 401
+  code: rest_forbidden
+- url: https://nusano.com/wp-json/mcp/mcp-adapter-default-server
+  method: POST tools/list
+  auth: none
+  status: 401
+  code: rest_forbidden
+- url: https://nusano.com/.well-known/openid-configuration
+  method: GET
+  auth: none
+  status: 404
+- url: https://nusano.com/.well-known/oauth-authorization-server
+  method: GET
+  auth: none
+  status: 404
+oauth:
+  supported: false
+  note: No OAuth or OIDC metadata is served; no scopes/ artifact is emitted.

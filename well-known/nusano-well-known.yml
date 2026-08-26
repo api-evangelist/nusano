@@ -1,0 +1,35 @@
+generated: '2026-08-26'
+method: probed
+source: https://nusano.com/.well-known/
+note: Every /.well-known/ path was probed on the only host Nusano operates (nusano.com, a WordPress site).
+  All returned HTTP 404 carrying the site's themed HTML 404 page, not a document. NO WellKnown, APICatalog
+  or SecurityTxt pointer is emitted in apis.yml — this file records a verified ABSENCE, not a presence.
+  Note that nusano.com DOES serve a real /llms.txt at the root (HTTP 200, saved to llms/nusano-llms.txt);
+  llms.txt is not a /.well-known/ document and is pointed at separately.
+hosts:
+- host: nusano.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
