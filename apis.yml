@@ -133,6 +133,9 @@ apis:
   humanURL: https://nusano.com/news/
   baseURL: https://nusano.com/wp-json/wp/v2
   tags:
+  - User
+  - Content
+  tags_raw:
   - Users
   - Content
   properties:
