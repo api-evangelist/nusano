@@ -2,6 +2,13 @@
   "repo": "nusano",
   "feeds": [
     {
+      "source": "https://nusano.com/news/nu-blog/",
+      "feed_url": "https://nusano.com/news/nu-blog/feed/",
+      "title": "",
+      "saved": 0,
+      "method": "discovered"
+    },
+    {
       "source": "https://nusano.com/technology/",
       "feed_url": "https://nusano.com/feed/",
       "title": "",
@@ -9,13 +16,13 @@
       "method": "discovered"
     },
     {
-      "source": "https://nusano.com/news/nu-blog/",
+      "source": "https://nusano.com/feed/",
       "feed_url": "https://nusano.com/feed/",
       "title": "",
       "saved": 0,
-      "method": "discovered"
+      "method": "feed"
     }
   ],
-  "post_count": 0,
-  "fetched": "2026-08-30T22:33:40Z"
+  "post_count": 10,
+  "fetched": "2026-09-06T19:17:18Z"
 }
