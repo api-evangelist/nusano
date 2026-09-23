@@ -1,20 +1,9 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Nusano Content API (WordPress REST wp/v2) Users API
   version: wp/v2
-  summary: 'Public read surface of nusano.com content: news releases, Nu Blog posts, HALEU knowledge-center and
-    marketing pages, the media library, taxonomies and site search.'
-  description: 'Nusano publishes nusano.com on WordPress, which exposes the WordPress REST API at https://nusano.com/wp-json/.
-    The `wp/v2` namespace is anonymously readable and returns the company''s news releases, Nu Blog posts, event
-    notices, marketing and HALEU knowledge-center pages, the media library, categories, tags and a site-wide search
-    endpoint as JSON.
-
-
-    This document was DERIVED mechanically by API Evangelist from the route-discovery document served at https://nusano.com/wp-json/wp/v2
-    on 2026-08-26 — every path, method and parameter below is taken verbatim from that descriptor. Nusano does not
-    publish an OpenAPI definition of its own, and this is NOT a product API: Nusano manufactures radioisotopes,
-    and this is the content API its CMS exposes. Write operations are declared by the route index but require authentication
-    (WordPress Application Passwords over HTTP Basic); anonymous writes return 401 `rest_forbidden`.'
+  summary: 'Public read surface of nusano.com content: news releases, Nu Blog posts, HALEU knowledge-center and marketing pages, the media library, taxonomies and site search.'
+  description: Nusano publishes nusano.com on WordPress, which exposes the WordPress REST API at https://nusano.com/wp-json/.
   contact:
     name: Nusano
     url: https://nusano.com/
@@ -135,8 +124,7 @@ paths:
           type: array
           items:
             type: string
-        description: Limit result set to users matching at least one specific role provided. Accepts csv list or
-          single role.
+        description: Limit result set to users matching at least one specific role provided. Accepts csv list or single role.
       - name: capabilities
         in: query
         required: false
@@ -144,8 +132,7 @@ paths:
           type: array
           items:
             type: string
-        description: Limit result set to users matching at least one specific capability provided. Accepts csv list
-          or single capability.
+        description: Limit result set to users matching at least one specific capability provided. Accepts csv list or single capability.
       - name: who
         in: query
         required: false
@@ -185,15 +172,13 @@ paths:
                 items:
                   type: object
         '400':
-          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`,
-            `rest_invalid_param`).
+          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`, `rest_invalid_param`).
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '401':
-          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401
-            with a JSON error envelope.
+          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401 with a JSON error envelope.
           content:
             application/json:
               schema:
@@ -207,8 +192,7 @@ paths:
     post:
       operationId: createUsers
       summary: POST /wp/v2/users
-      description: Write operation declared by the WordPress route index. It requires authentication (WordPress
-        Application Passwords over HTTP Basic); anonymous calls return 401 `rest_forbidden`.
+      description: Write operation declared by the WordPress route index. It requires authentication (WordPress Application Passwords over HTTP Basic); anonymous calls return 401 `rest_forbidden`.
       tags:
       - Users
       requestBody:
@@ -276,15 +260,13 @@ paths:
               schema:
                 type: object
         '400':
-          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`,
-            `rest_invalid_param`).
+          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`, `rest_invalid_param`).
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '401':
-          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401
-            with a JSON error envelope.
+          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401 with a JSON error envelope.
           content:
             application/json:
               schema:
@@ -330,15 +312,13 @@ paths:
               schema:
                 type: object
         '400':
-          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`,
-            `rest_invalid_param`).
+          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`, `rest_invalid_param`).
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '401':
-          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401
-            with a JSON error envelope.
+          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401 with a JSON error envelope.
           content:
             application/json:
               schema:
@@ -352,8 +332,7 @@ paths:
     post:
       operationId: createUsersById
       summary: POST /wp/v2/users/{id}
-      description: Write operation declared by the WordPress route index. It requires authentication (WordPress
-        Application Passwords over HTTP Basic); anonymous calls return 401 `rest_forbidden`.
+      description: Write operation declared by the WordPress route index. It requires authentication (WordPress Application Passwords over HTTP Basic); anonymous calls return 401 `rest_forbidden`.
       tags:
       - Users
       parameters:
@@ -395,7 +374,7 @@ paths:
                   description: Description of the user.
                 locale:
                   type: string
-                  enum: &id001
+                  enum:
                   - ''
                   - en_US
                   description: Locale for the user.
@@ -424,15 +403,13 @@ paths:
               schema:
                 type: object
         '400':
-          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`,
-            `rest_invalid_param`).
+          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`, `rest_invalid_param`).
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '401':
-          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401
-            with a JSON error envelope.
+          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401 with a JSON error envelope.
           content:
             application/json:
               schema:
@@ -448,8 +425,7 @@ paths:
     put:
       operationId: updateUsersById
       summary: PUT /wp/v2/users/{id}
-      description: Write operation declared by the WordPress route index. It requires authentication (WordPress
-        Application Passwords over HTTP Basic); anonymous calls return 401 `rest_forbidden`.
+      description: Write operation declared by the WordPress route index. It requires authentication (WordPress Application Passwords over HTTP Basic); anonymous calls return 401 `rest_forbidden`.
       tags:
       - Users
       parameters:
@@ -491,7 +467,9 @@ paths:
                   description: Description of the user.
                 locale:
                   type: string
-                  enum: *id001
+                  enum:
+                  - ''
+                  - en_US
                   description: Locale for the user.
                 nickname:
                   type: string
@@ -518,15 +496,13 @@ paths:
               schema:
                 type: object
         '400':
-          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`,
-            `rest_invalid_param`).
+          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`, `rest_invalid_param`).
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '401':
-          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401
-            with a JSON error envelope.
+          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401 with a JSON error envelope.
           content:
             application/json:
               schema:
@@ -542,8 +518,7 @@ paths:
     patch:
       operationId: patchUsersById
       summary: PATCH /wp/v2/users/{id}
-      description: Write operation declared by the WordPress route index. It requires authentication (WordPress
-        Application Passwords over HTTP Basic); anonymous calls return 401 `rest_forbidden`.
+      description: Write operation declared by the WordPress route index. It requires authentication (WordPress Application Passwords over HTTP Basic); anonymous calls return 401 `rest_forbidden`.
       tags:
       - Users
       parameters:
@@ -585,7 +560,9 @@ paths:
                   description: Description of the user.
                 locale:
                   type: string
-                  enum: *id001
+                  enum:
+                  - ''
+                  - en_US
                   description: Locale for the user.
                 nickname:
                   type: string
@@ -612,15 +589,13 @@ paths:
               schema:
                 type: object
         '400':
-          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`,
-            `rest_invalid_param`).
+          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`, `rest_invalid_param`).
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '401':
-          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401
-            with a JSON error envelope.
+          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401 with a JSON error envelope.
           content:
             application/json:
               schema:
@@ -636,8 +611,7 @@ paths:
     delete:
       operationId: deleteUsersById
       summary: DELETE /wp/v2/users/{id}
-      description: Write operation declared by the WordPress route index. It requires authentication (WordPress
-        Application Passwords over HTTP Basic); anonymous calls return 401 `rest_forbidden`.
+      description: Write operation declared by the WordPress route index. It requires authentication (WordPress Application Passwords over HTTP Basic); anonymous calls return 401 `rest_forbidden`.
       tags:
       - Users
       parameters:
@@ -655,15 +629,13 @@ paths:
               schema:
                 type: object
         '400':
-          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`,
-            `rest_invalid_param`).
+          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`, `rest_invalid_param`).
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '401':
-          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401
-            with a JSON error envelope.
+          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401 with a JSON error envelope.
           content:
             application/json:
               schema:
@@ -705,15 +677,13 @@ paths:
                 items:
                   type: object
         '400':
-          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`,
-            `rest_invalid_param`).
+          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`, `rest_invalid_param`).
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '401':
-          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401
-            with a JSON error envelope.
+          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401 with a JSON error envelope.
           content:
             application/json:
               schema:
@@ -727,8 +697,7 @@ paths:
     post:
       operationId: createUsersMe
       summary: POST /wp/v2/users/me
-      description: Write operation declared by the WordPress route index. It requires authentication (WordPress
-        Application Passwords over HTTP Basic); anonymous calls return 401 `rest_forbidden`.
+      description: Write operation declared by the WordPress route index. It requires authentication (WordPress Application Passwords over HTTP Basic); anonymous calls return 401 `rest_forbidden`.
       tags:
       - Users
       requestBody:
@@ -763,7 +732,7 @@ paths:
                   description: Description of the user.
                 locale:
                   type: string
-                  enum: &id002
+                  enum:
                   - ''
                   - en_US
                   description: Locale for the user.
@@ -792,15 +761,13 @@ paths:
               schema:
                 type: object
         '400':
-          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`,
-            `rest_invalid_param`).
+          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`, `rest_invalid_param`).
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '401':
-          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401
-            with a JSON error envelope.
+          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401 with a JSON error envelope.
           content:
             application/json:
               schema:
@@ -816,8 +783,7 @@ paths:
     put:
       operationId: updateUsersMe
       summary: PUT /wp/v2/users/me
-      description: Write operation declared by the WordPress route index. It requires authentication (WordPress
-        Application Passwords over HTTP Basic); anonymous calls return 401 `rest_forbidden`.
+      description: Write operation declared by the WordPress route index. It requires authentication (WordPress Application Passwords over HTTP Basic); anonymous calls return 401 `rest_forbidden`.
       tags:
       - Users
       requestBody:
@@ -852,7 +818,9 @@ paths:
                   description: Description of the user.
                 locale:
                   type: string
-                  enum: *id002
+                  enum:
+                  - ''
+                  - en_US
                   description: Locale for the user.
                 nickname:
                   type: string
@@ -879,15 +847,13 @@ paths:
               schema:
                 type: object
         '400':
-          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`,
-            `rest_invalid_param`).
+          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`, `rest_invalid_param`).
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '401':
-          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401
-            with a JSON error envelope.
+          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401 with a JSON error envelope.
           content:
             application/json:
               schema:
@@ -903,8 +869,7 @@ paths:
     patch:
       operationId: patchUsersMe
       summary: PATCH /wp/v2/users/me
-      description: Write operation declared by the WordPress route index. It requires authentication (WordPress
-        Application Passwords over HTTP Basic); anonymous calls return 401 `rest_forbidden`.
+      description: Write operation declared by the WordPress route index. It requires authentication (WordPress Application Passwords over HTTP Basic); anonymous calls return 401 `rest_forbidden`.
       tags:
       - Users
       requestBody:
@@ -939,7 +904,9 @@ paths:
                   description: Description of the user.
                 locale:
                   type: string
-                  enum: *id002
+                  enum:
+                  - ''
+                  - en_US
                   description: Locale for the user.
                 nickname:
                   type: string
@@ -966,15 +933,13 @@ paths:
               schema:
                 type: object
         '400':
-          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`,
-            `rest_invalid_param`).
+          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`, `rest_invalid_param`).
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '401':
-          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401
-            with a JSON error envelope.
+          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401 with a JSON error envelope.
           content:
             application/json:
               schema:
@@ -990,8 +955,7 @@ paths:
     delete:
       operationId: deleteUsersMe
       summary: DELETE /wp/v2/users/me
-      description: Write operation declared by the WordPress route index. It requires authentication (WordPress
-        Application Passwords over HTTP Basic); anonymous calls return 401 `rest_forbidden`.
+      description: Write operation declared by the WordPress route index. It requires authentication (WordPress Application Passwords over HTTP Basic); anonymous calls return 401 `rest_forbidden`.
       tags:
       - Users
       responses:
@@ -1002,15 +966,13 @@ paths:
               schema:
                 type: object
         '400':
-          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`,
-            `rest_invalid_param`).
+          description: Bad Request — a required parameter is missing or invalid (`rest_missing_callback_param`, `rest_invalid_param`).
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '401':
-          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401
-            with a JSON error envelope.
+          description: Unauthorized — the route requires authentication (`rest_forbidden`). WordPress returns 401 with a JSON error envelope.
           content:
             application/json:
               schema:
@@ -1024,12 +986,6 @@ paths:
       security:
       - applicationPassword: []
 components:
-  securitySchemes:
-    applicationPassword:
-      type: http
-      scheme: basic
-      description: WordPress Application Passwords over HTTP Basic. Anonymous read is permitted on these routes;
-        every write requires credentials.
   schemas:
     Error:
       type: object
@@ -1050,3 +1006,8 @@ components:
       required:
       - code
       - message
+  securitySchemes:
+    applicationPassword:
+      type: http
+      scheme: basic
+      description: WordPress Application Passwords over HTTP Basic. Anonymous read is permitted on these routes; every write requires credentials.
