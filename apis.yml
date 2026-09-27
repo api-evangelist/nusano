@@ -63,7 +63,6 @@ tags:
 - Nuclear Energy
 - HALEU
 - Critical Minerals
-- Content
 apis:
 - aid: nusano:mcp
   name: Nusano MCP Server (WordPress MCP Adapter)
@@ -82,116 +81,23 @@ apis:
     url: mcp/nusano-mcp.yml
   - type: ToolCrosswalk
     url: mcp/nusano-tool-crosswalk.yml
-- aid: nusano:posts
-  name: Nusano Posts API
-  description: News releases, event notices and Nu Blog posts from nusano.com, served as JSON by the WordPress
-    content REST API. 109 posts were readable anonymously on 2026-08-26.
-  humanURL: https://nusano.com/news/
-  baseURL: https://nusano.com/wp-json/wp/v2
+  x-surface: platform-generated
+  x-platform: wordpress
+  x-platform-surface: mcp-plugin
+- aid: nusano:nusano-com-website-wordpress-rest
+  name: Nusano Website (WordPress REST)
+  description: 'The public WordPress REST API (wp-json) of the Nusano website at nusano.com: the route
+    index of the site''s content management system, catalogued as one site surface rather than as separate
+    APIs.'
+  baseURL: https://nusano.com/wp-json
   tags:
-  - Posts
-  - Content
-  - News
+  - WordPress
+  x-surface: platform-generated
   properties:
-  - type: OpenAPI
-    url: openapi/nusano-posts-api-openapi.yml
-- aid: nusano:pages
-  name: Nusano Pages API
-  description: Marketing, company, technology and HALEU Knowledge Center pages from nusano.com, served
-    as JSON. 47 pages were readable anonymously on 2026-08-26.
-  humanURL: https://nusano.com/
-  baseURL: https://nusano.com/wp-json/wp/v2
-  tags:
-  - Pages
-  - Content
-  properties:
-  - type: OpenAPI
-    url: openapi/nusano-pages-api-openapi.yml
-- aid: nusano:media
-  name: Nusano Media API
-  description: The nusano.com media library — facility photography, logos, media-kit assets and documents
-    — served as JSON. 1,127 media items were readable anonymously on 2026-08-26.
-  humanURL: https://nusano.com/news/nusano-media-kit/
-  baseURL: https://nusano.com/wp-json/wp/v2
-  tags:
-  - Media
-  - Content
-  properties:
-  - type: OpenAPI
-    url: openapi/nusano-media-api-openapi.yml
-- aid: nusano:categories
-  name: Nusano Categories API
-  description: The category taxonomy applied to Nusano news and blog content (14 categories on 2026-08-26).
-  humanURL: https://nusano.com/news/
-  baseURL: https://nusano.com/wp-json/wp/v2
-  tags:
-  - Categories
-  - Taxonomy
-  properties:
-  - type: OpenAPI
-    url: openapi/nusano-categories-api-openapi.yml
-- aid: nusano:tags
-  name: Nusano Tags API
-  description: The tag taxonomy applied to Nusano news and blog content (310 tags on 2026-08-26).
-  humanURL: https://nusano.com/news/
-  baseURL: https://nusano.com/wp-json/wp/v2
-  tags:
-  - Tags
-  - Taxonomy
-  properties:
-  - type: OpenAPI
-    url: openapi/nusano-tags-api-openapi.yml
-- aid: nusano:users
-  name: Nusano Users API
-  description: Publicly listed content authors on nusano.com (2 on 2026-08-26). Write routes and the application-password
-    routes on this collection are authentication-gated.
-  humanURL: https://nusano.com/news/
-  baseURL: https://nusano.com/wp-json/wp/v2
-  tags:
-  - User
-  - Content
-  tags_raw:
-  - Users
-  - Content
-  properties:
-  - type: OpenAPI
-    url: openapi/nusano-users-api-openapi.yml
-- aid: nusano:comments
-  name: Nusano Comments API
-  description: The comment collection for nusano.com. The route is live and anonymously readable but returns
-    an empty set — comments are closed across the site.
-  humanURL: https://nusano.com/news/
-  baseURL: https://nusano.com/wp-json/wp/v2
-  tags:
-  - Comments
-  - Content
-  properties:
-  - type: OpenAPI
-    url: openapi/nusano-comments-api-openapi.yml
-- aid: nusano:search
-  name: Nusano Search API
-  description: Site-wide search across nusano.com posts and pages, returning 156 searchable objects on
-    2026-08-26.
-  humanURL: https://nusano.com/
-  baseURL: https://nusano.com/wp-json/wp/v2
-  tags:
-  - Search
-  - Content
-  properties:
-  - type: OpenAPI
-    url: openapi/nusano-search-api-openapi.yml
-- aid: nusano:discovery
-  name: Nusano Discovery API
-  description: Type, taxonomy and status descriptors that describe the shape of the nusano.com content
-    collections — the self-describing layer of the WordPress REST API.
-  humanURL: https://nusano.com/wp-json/wp/v2
-  baseURL: https://nusano.com/wp-json/wp/v2
-  tags:
-  - Discovery
-  - Metadata
-  properties:
-  - type: OpenAPI
-    url: openapi/nusano-discovery-api-openapi.yml
+  - type: Documentation
+    url: https://nusano.com/wp-json
+  x-platform: wordpress
+  x-platform-surface: rest
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
