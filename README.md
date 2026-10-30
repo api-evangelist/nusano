@@ -64,5 +64,116 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Nusano is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://forgeglobal.com/nusano_stock/
+Nusano is a privately held physics company headquartered in West Valley City, Utah, that is rebuilding radioisotope production around a proprietary high-current ion source and linear accelerator platform. Founded by nuclear cardiologist Dr. Howard Lewin and nuclear physicist Dr. Glenn Rosenthal and led by CEO Chris Lowe, the company cut the ribbon in August 2025 on a custom-built 190,000-square-foot production facility capable of producing more than 40 different radioisotopes, and has raised over $115M in a Series C to commercialize them. Its platform can generate up to twelve isotopes simultaneously and serves three markets: medical radioisotopes as active pharmaceutical ingredients for radiotherapeutic and diagnostic oncology (with multi-isotope supply agreements signed with Ratio Therapeutics, Ariceum Therapeutics and Clarity Pharmaceuticals), high-assay low-enriched uranium (HALEU) for next-generation nuclear fuel, and long-lived radioisotope nuclear batteries for aerospace, maritime and terrestrial use, alongside mass-separation work on North American critical mineral refining. Nusano is a manufacturer of physical radioisotope products, not a software vendor: it operates no developer program, publishes no product API, SDK or developer portal, and the only machine-readable surfaces on nusano.com are a published llms.txt and the WordPress content REST API (wp/v2) that serves the newsroom, Nu Blog, pages and media library as JSON, plus a WordPress MCP Adapter endpoint that is live but authentication-gated.
+
+**Areas:** Company · Radioisotopes · Nuclear Medicine · Life Sciences · Healthcare · Oncology · Radiopharmaceuticals · Physics · Advanced Manufacturing · Nuclear Energy · HALEU · Critical Minerals
+
+## Nusano on APIs.io
+
+Everything profiled for Nusano is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/nusano/](https://apis.io/providers/nusano/)** — or go straight to one of the APIs or properties below.
+
+### APIs (2)
+
+- [Nusano MCP Server (WordPress MCP Adapter)](https://apis.io/apis/nusano/mcp/) — A Model Context Protocol server endpoint advertised in the nusano.com WordPress REST route index under the "mcp" namespace and served at…
+- [Nusano Website (WordPress REST)](https://apis.io/apis/nusano/nusano-com-website-wordpress-rest/) — The public WordPress REST API (wp-json) of the Nusano website at nusano.com: the route index of the site's content management system, catalogued as one site…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [Nusano MCP Server (WordPress MCP Adapter)](https://apis.io/servers/nusano/nusano-mcp-server-wordpress-mcp-adapter/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Nusano Content Overlay](https://apis.io/overlays/nusano/nusano-content-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Nusano Authentication](https://apis.io/security/nusano/nusano-authentication/)
+- [Nusano Domain Security](https://apis.io/security/nusano/nusano-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Nusano Plans Pricing](https://apis.io/plans/nusano/nusano-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Nusano Rate Limits](https://apis.io/rate-limits/nusano/nusano-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://nusano.com/)
+- [Support](https://nusano.com/contact-us/)
+- [Blog](https://nusano.com/news/nu-blog/)
+- [Terms of service](https://nusano.com/terms-of-service/)
+- [Privacy policy](https://nusano.com/privacy-policy/)
+- [GitHub](https://github.com/Nusano)
+
+## API Evangelist rating
+
+**Kin Score 20.7** — emerging · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 67.5 |
+| Contract quality | 6.5 |
+| Contract governance | 4.5 |
+| Operational transparency | 2.6 |
+| Developer ergonomics | 30.4 |
+| Access clarity | 21.1 |
+
+**Agent readiness 10.1** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | platform (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | documented (partial credit) |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 19.5** — Health
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/nusano/](https://apis.io/providers/nusano/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Nusano: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/nusano/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
